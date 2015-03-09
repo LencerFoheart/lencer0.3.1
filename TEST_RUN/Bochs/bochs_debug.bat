@@ -1,0 +1,1 @@
+"D:\Program Files (x86)\Bochs-2.2.6\bochsdbg" -q -f bochsrc_fd.bxrc

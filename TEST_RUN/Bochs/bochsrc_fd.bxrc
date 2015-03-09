@@ -1,0 +1,21 @@
+megs: 16
+romimage: file=$BXSHARE/BIOS-bochs-latest
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+vga: extension=vbe
+floppya: 1_44="../../Image", status=inserted
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
+ata1: enabled=0, ioaddr1=0x170, ioaddr2=0x370, irq=15
+# NOTE! cylinders * heads * spt * 512 = size of "../../rootImage"
+ata0-master: type=disk, mode=flat, path="../../rootImage", cylinders=163, heads=2, spt=63
+ata0-slave: type=cdrom, path=D:, status=ejected
+boot: a
+log: bochsout.txt
+mouse: enabled=0
+ips: 15000000
+vga_update_interval: 150000
+i440fxsupport: enabled=1
+panic: action=ask
+error: action=ask
+info: action=report
+debug: action=ignore
+#pass: action=fatal

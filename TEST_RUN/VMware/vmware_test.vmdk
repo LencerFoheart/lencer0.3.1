@@ -1,0 +1,12 @@
+version=1
+CID=e03fd78b
+parentCID=ffffffff
+createType="monolithicFlat"
+
+RW 20538 FLAT "../../rootImage" 0
+
+ddb.virtualHWVersion = "4"
+ddb.geometry.cylinders = "163"
+ddb.geometry.heads = "2"
+ddb.geometry.sectors = "63"
+ddb.adapterType = "ide"

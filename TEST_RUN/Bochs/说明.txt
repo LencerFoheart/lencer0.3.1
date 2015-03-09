@@ -1,0 +1,27 @@
+--	2014-02-07 12:17:29
+
+--	该目录用于在Bochs中运行和测试内核。
+
+--	“bochsrc_fd.bxrc”和“bochs_debug.bat”分别用于运行和调试内核。
+
+--	请注意“bochsrc_fd.bxrc”中的“系统镜像名”、“磁盘镜像名”、“内存”、
+	“磁头数”、“每磁道扇区数”、“柱面数”等等是否适合，不适合请修改之。
+	注：“磁头数”、“每磁道扇区数”、“柱面数”依据内核中的mkfs程序。
+
+--	请注意“bochs_debug.bat”中“bochsdbg”的路径依赖于Bochs安装目录，
+	请确认是否正确。
+
+--	设置Bochs的LOG选项，可以改变Bochs处理消息、错误、异常等等的方式，
+	设置如下(参考Bochs安装目录下的“bochsrc-sample.txt”)：
+		panic: action=ask
+		error: action=ask
+		info: action=report
+		debug: action=ignore
+		#pass: action=fatal
+
+--	为了解决Bochs出现的类似“ata0: device set to 1 which does not exist”
+	这样的错误，我们需将ata0、ata0-master、ata0-slave、ata1、ata1-master、
+	ata1-slave设置好，这是因为BIOS会去探测“从设备”，当你没有安装(设置)
+	从设备时，就会得到该错误消息，而ata0和ata1是Bochs缺省存在的(参考Bochs
+	安装目录下的“bochsrc-sample.txt”)，因此当你不需要ata1时，需设置其不存在，
+	而此时就不需要再去设置其主从设备驱动了。

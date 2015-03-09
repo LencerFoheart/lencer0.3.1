@@ -1,0 +1,136 @@
+在VMware中运行Bochs磁盘Image文件的方法
+
+
+*** 概述
+
+	Bochs是一个开源的虚拟机仿真软件，它安装和运行都很方便。但由于它使用
+	了指令级仿真技术，因此运行起来速度比较慢，并且很耗费CPU时间。而VMware
+	虚拟机系统则是直接在硬件上执行指令，因此其运行速度极快，可以与一台真实
+	的机器相媲美。另外，目前VMware公司也开始提供开放源代码的免费产品，因此
+	这里我们也享受一下这些顶级虚拟机系统的功能和速度。我们主要介绍如何利用
+	VMware公司的拳头产品VMware Workstation来运行Bochs的磁盘映像文件，也顺便
+	说明在VMware Player中的使用方法。
+
+	
+*** VMware的配置文件
+
+	VMware的运行主要依靠两个配置文件。一个是以.vmx结尾的说明虚拟PC机配置
+	环境的文本文件，其中说明了虚拟PC机所配置的软硬盘、CD-ROM驱动器、声卡
+	和USB等设备的类型和参数，以及会在这个环境中运行的客户OS类型；另一个
+	以.vmdk结尾的专门用来说明硬盘Image文件所模拟硬盘的柱面数、磁头数和
+	每磁道扇区数的配置文件。
+	
+	有两种方法可以为Bochs下的Image文件产生这两个配置文件。一种方法是我们
+	可以为要用的磁盘Image手工编辑产生这两个文件；另一种方法是首先使用VMware
+	为我们产生两个类似的配置文件，然后手工进行修改而成。比较方便的做法是使用
+	第二种方法。下面我们以一个具体实例来说明如何把Bochs下的硬盘Image文件用于
+	VMware环境中。我们将使用原来运行在Bochs下的linux-0.11-040305.zip软件包中
+	的软盘和硬盘Image文件，通过设置上述两个配置文件，让Linux 0.11操作系统运行
+	在VMware环境中。所使用的VMware软件名称和版本是VMware Workstation V5.5.x，
+	我们可以从VMware网站上（www.vmware.com）免费下载试用版本，试用期为1个月。
+	另外，VMware公司还开源并免费提供了一个虚拟机运行软件：VMware Player。
+	这个软件可以运行VMware Workstation和微软的Virtual PC虚拟机系统创建的
+	虚拟机。利用本文中给出的两个配置文件，加上Bochs中的磁盘Image文件，我们
+	也可以让这个Linux 0.11客户操作系统虚拟机运行在VMware Player中。
+
+	
+*** 使用Bochs磁盘Image文件的操作步骤
+
+	1.从www.oldlinux.org上下载linux-0.11-040305.zip软件包，具体地址是：
+	http://www.oldlinux.org/Linux.old/bochs-images/linux-0.11-040305.zip
+	直接解压在桌面上，会生成linux-0.11-040305/目录。我们将只用到其中两个
+	磁盘Image文件：硬盘Image文件hdc-0.11.img和启动引导时使用的A盘Image文件
+	bootimage-0.11-hd.new。
+	
+	2.运行VMware，在其中新创建一个名称为Linux-0.11的虚拟机。具体方法是
+	选择执行菜单项“File->New->Virtual Machine…”，然后按照出现的向导
+	对话框进行新虚拟机的建立设置：
+	a.点击“下一步”，出现配置方式选择窗口。在虚拟机配置单选按钮框中选择
+	典型（Typical）配置方式；
+	b.点击“下一步”，出现选择要运行的客户操作系统类型窗口。在客户操作系统
+	（Guest operating system）单选按钮框中选择“其它（Other）”项。此时在版本
+	（Version）下拉式框中会出现“MS-DOS”项；
+	c.点击“下一步”，出现设置虚拟机名称和位置的窗口。在虚拟机名称框中我们
+	把虚拟机命名为“LINUX-0.11”，此时虚拟机的默认位置被设置在“C:\Documents and
+	Settings\John\My Documents\My Virtual Machines\Linux-0.11”处，即处于
+	“我的文档”下的子目录“My Virtual Machines\Linux-0.11\”中。
+	d.点击“下一步”，出现选择网络连接窗口。我们选择最后一项“不使用网络连接
+	（Do not use a network connection”。
+	e.点击“下一步”，出现设定磁盘容量窗口。由于我们并不需要使用VMware产生
+	的磁盘Image文件，而是利用产生过程得到的.vmdk配置文件，因此这里我们选择
+	磁盘大小为0.1GB。这是在向导设置中VMware可以设置的最小磁盘容量值。并且
+	选择“立即分贝所有磁盘空间（Allocate all disk space now）”选项。最后单击
+	“完成”按钮OK。
+	
+	3.现在我们不关闭VMware程序，但切换到“我的文档”下的 “My Virtual Machines
+	\Linux-0.11\” 子目录中，然后把第1步中得到的两个Linux 0.11的Image文件
+	（hdc-0.11.img和bootimage-0.11-hd.new）复制到这个目录中。
+	
+	4.然后再回到VMware程序，点击命令一栏中的“编辑虚拟机设置（Edit virtual 
+	machine settings）”项，会出现虚拟机设备配置窗口。自己配置一下，最后按“OK”
+	按钮返回到VMware的主界面上，但此时在右边设备一栏中多出一个软驱设备。
+	现在我们可以暂时关闭VMware程序，并切换到“我的文档”下的子目录“My Virtual 
+	Machines\Linux-0.11\”中去修改VMware创建的配置文件了。
+	
+	5.进入VMware创建的子目录“Linux-0.11\”后，我们可以看到有6个文件存在，
+	VMware在其中创建了4个文件（若VMware没有关闭则是5个文件）。由于我们只
+	关心其中的“MS-DOS.vmdk”和“MS-DOS.vmx”两个配置文件以及我们复制过来的
+	两个Linux 0.11系统的Image文件，因此现在可以删除其他2（3）个文件。此时在
+	Linux-0.11目录中我们有以下4个文件：
+		Bootimage-0.11-hd.new
+		Hdc-0.11.img
+		MS-DOS.vmdk
+		MS-DOS.vmx
+
+	6.现在配置文件MS-DOS.vmx已经被VMware设置好，我们无需对其再进行修改。
+	下面列出的是其中的必需内容。其中右边“&#35;”号是加的注释，不是文件中
+	的内容。
+	--------------------------------------------------------------------
+		config.version = "8"
+		virtualHW.version = "4"
+		displayName = "Linux-0.11"
+		memsize = "16"
+		ide0:0.present = "TRUE"
+		ide0:0.fileName = "MS-DOS.vmdk"
+		floppy0.present = "TRUE"
+		floppy0.fileType = "file"
+		floppy0.fileName = "bootimage-0.11-hd.new"
+		guestOS = "dos"
+	------------------------------------------------------------------
+
+	7.我们现在只需要修改一下MS-DOS.vmdk配置文件即可。主要修改处是根据Bochs
+	硬盘Image的参数来设置该配置文件中有关“硬盘”的柱面数、磁头数和每磁道扇区数。
+	这几个参数可从Bochs配置文件的硬盘Image参数行得到。对于我们的hdc-0.11.img文件，
+	它在Bochs配置文件（bochsrc-hd-new.bxrc）中的对应参数是：
+		ata0-master: type=disk, path="hdc-0.11.img", mode=flat, cylinders=121, heads=16, spt=63
+	因此可知hdc-0.11.img的参数是：柱面数cylinders=121；磁头数heads=16；每磁道扇区数spt=63。
+	根据这些值我们可以直接修改MS-DOS.vmdk的对应项。利用文本编辑器我们把该文件修改
+	成包含如下主要内容即可。
+	-------------------------------------------------------------------
+		&#35; Disk DescriptorFile
+		version=1
+		CID=e03fd78b
+		parentCID=ffffffff
+		createType="monolithicFlat"
+		&#35; Extent description
+		RW 121968 FLAT "hdc-0.11.img" 0		&#35; 数值121968 = (cylinders * heads * spt)
+		&#35; The Disk Data Base - DDB
+		ddb.virtualHWVersion = "4"
+		ddb.geometry.cylinders = "121"		&#35; Bochs配置文件中的cylinders = 121
+		ddb.geometry.heads = "16"			&#35; Bochs配置文件中的heads = 16
+		ddb.geometry.sectors = "63"			&#35; Bochs配置文件中的spt = 63
+		ddb.adapterType = "ide"
+	-------------------------------------------------------------------
+	其中，该文件当中的一行以“RW”开头的扩展描述信息，RW后的数值表示硬盘Image
+	文件中可读写扇区数，默认情况下我们可以读写硬盘Image文件的任何扇区，因此
+	该值为：(cylinders * heads * spt)
+
+	
+*** 在VMware中运行客户虚拟机系统
+
+	当我们在上述步骤中创建修改好.vmx和.vmdk文件后，现在可以再次运行VMware程序，
+	并点击“开始运行这台虚拟机（Start this virtual machine）”。如果上述步骤都
+	得以正常操作，那么我们就可以看到下面Linux 0.11的运行画面。
+
+	
+网址：http://www.oldlinux.org/oldlinux/viewthread.php?tid=4490

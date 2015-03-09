@@ -1,0 +1,14 @@
+Small开发环境
+2014-3-2 13:30:07
+
+
+一、操作系统平台
+Windows XP(以及以上) + VMware中运行的Linux发行版
+
+
+二、编译器以及工具
+gcc + as86 + ld86 + as + ld + make
+
+
+三、运行以及调试工具
+Bochs虚拟机 + VMware虚拟机
